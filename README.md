@@ -213,7 +213,7 @@ Windows 分发时需要连同 `build/windows/x64/runner/Release/` 目录中的�
 
 ### 签名配置
 
-`android/app/build.gradle.kts` 的 **release 与 debug 变体统一使用**项目根目录的 `keystore.jks`（keyAlias 为 `shiyi`），签名密码从 `android/local.properties` 的 `KEYSTORE_PASSWORD` 或环境变量 `KEYSTORE_PASSWORD` 读取。
+`android/app/build.gradle.kts` 的 **release 与 debug 变体统一使用**项目根目录的 `citizen.jks`（keyAlias 为 `citizen`），签名密码从 `android/local.properties` 的 `KEYSTORE_PASSWORD` 或环境变量 `KEYSTORE_PASSWORD` 读取。
 
 > debug 变体也用正式签名的原因：覆盖安装到装有正式版的真机不会因签名不一致失败/清数据；同时 debug 包仍可 `run-as` 备份数据。注意：**构建 debug 也需要配置签名密码**（没有密码时 debug 构建同样会失败）。
 
@@ -221,8 +221,8 @@ Windows 分发时需要连同 `build/windows/x64/runner/Release/` 目录中的�
 
 ```bash
 # 1. 生成签名密钥（只需一次；请务必妥善保管密码）
-keytool -genkeypair -v -keystore keystore.jks -keyalg RSA -keysize 2048 \
-  -validity 10000 -alias shiyi -dname "CN=ShiYi, OU=ShiYi, O=ShiYi, L=Beijing, ST=Beijing, C=CN"
+keytool -genkeypair -v -keystore citizen.jks -keyalg RSA -keysize 2048 \
+  -validity 10000 -alias citizen -dname "CN=ShiYi, OU=ShiYi, O=ShiYi, L=Beijing, ST=Beijing, C=CN"
 
 # 2. 配置密码（二选一）
 #    方式 A：写入 android/local.properties（不入库）
@@ -232,7 +232,7 @@ export KEYSTORE_PASSWORD="你的密码"
 flutter build apk --release
 ```
 
-> 注意：`keystore.jks` 与 `android/local.properties` 均被 `.gitignore` 排除，**不随源码提交**。丢失密钥意味着无法再对已发布的版本做覆盖更新（签名不一致），请务必备份。
+> 注意：`citizen.jks` 与 `android/local.properties` 均被 `.gitignore` 排除，**不随源码提交**。丢失密钥意味着无法再对已发布的版本做覆盖更新（签名不一致），请务必备份。
 
 
 ## 文档

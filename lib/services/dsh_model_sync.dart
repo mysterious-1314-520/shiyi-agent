@@ -798,14 +798,16 @@ class DshModelSync {
             final yaml = removeProviderYaml(await file.readAsString(), id);
             await _writeAtomically(file, yaml);
           }
-          if (removed != null &&
-              removed.credentialEnv != credentialEnv &&
-              removed.credentialEnv != searchCredentialEnv) {
+          // 闭包捕获的 removed 跨 await 后类型提升失效，先取出字段。
+          final removedCredEnv = removed?.credentialEnv;
+          if (removedCredEnv != null &&
+              removedCredEnv != credentialEnv &&
+              removedCredEnv != searchCredentialEnv) {
             final cred = File('$home/.credentials.yaml');
             if (await cred.exists()) {
               final text = upsertCredentialsYaml(
                 await cred.readAsString(),
-                removed.credentialEnv,
+                removedCredEnv,
                 '',
               );
               await _writeAtomically(cred, text);

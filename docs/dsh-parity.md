@@ -10,7 +10,7 @@
 > # 谁带客户端清单
 > cd <dsh-pkg>/node_modules/@deepseek-ai && for d in */; do [ -f "$d/lib/typert.remote-client.js" ] && echo "$d"; done
 > # 某功能的官方用法
-> run-as com.shiyi.agent cat <pkg>/lib/client.js | grep -o '\b[a-zA-Z]*\.[a-zA-Z]*(('
+> run-as io.github.jiusis.shiyi cat <pkg>/lib/client.js | grep -o '\b[a-zA-Z]*\.[a-zA-Z]*(('
 > ```
 
 ## 一、官方接口面（26 个包带 typert 客户端清单）

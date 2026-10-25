@@ -593,7 +593,7 @@ class TermuxRuntime {
 # 用法: init-host -c <command> [args...]   （command 由 rootfs 内 /bin/sh -c 执行）
 #       init-host <args...>                （透传给 rootfs 内 /bin/sh）
 # 依赖环境变量（Dart 注入）: PREFIX LD_LIBRARY_PATH LINKER PROOT_LOADER TMPDIR
-PREFIX=${PREFIX:-/data/data/com.shiyi.agent/files/termux}
+PREFIX=${PREFIX:-/data/data/io.github.jiusis.shiyi/files/termux}
 ROOTFS=$PREFIX/local/alpine
 PROOT_BIN=$PREFIX/local/bin/proot
 export PROOT_LOADER=${PROOT_LOADER:-$PREFIX/local/lib/loader}

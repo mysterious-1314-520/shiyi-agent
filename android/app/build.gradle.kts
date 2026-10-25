@@ -20,7 +20,7 @@ val keystorePassword: String by lazy {
 }
 
 android {
-    namespace = "com.shiyi.agent"
+    namespace = "io.github.jiusis.shiyi"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -48,7 +48,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.shiyi.agent"
+        applicationId = "io.github.jiusis.shiyi"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -59,8 +59,8 @@ android {
         // sepolicy 补丁解决（见 TermuxRuntime._ensureApkLinkPolicy），
         // 无需再牺牲 targetSdk（新装 app 不再按旧版安卓设计渲染）。
         targetSdk = 36
-        versionCode = 36
-        versionName = "2.6.11"
+        versionCode = 37
+        versionName = "2.6.12"
         ndk {
             abiFilters.clear()
             abiFilters.add("arm64-v8a")
@@ -69,16 +69,16 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("../../keystore.jks")
+            storeFile = file("../../citizen.jks")
             storePassword = keystorePassword
-            keyAlias = "shiyi"
+            keyAlias = "citizen"
             keyPassword = keystorePassword
         }
     }
 
     buildTypes {
         debug {
-            // debug 变体也用正式签名（keystore.jks）：
+            // debug 变体也用正式签名（citizen.jks）：
             // 1) 覆盖安装到装有正式版的真机不会因签名不一致失败/清数据
             //    （与 AGENTS.md 的部署纪律一致：adb install -r 且签名一致）；
             // 2) debug 包仍可 run-as 备份/验证数据（release 包不可 run-as）。

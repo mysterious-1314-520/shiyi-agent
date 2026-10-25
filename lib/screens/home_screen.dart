@@ -21,6 +21,7 @@ import '../widgets/home_drag.dart';
 import '../widgets/home_group_chats.dart';
 import '../widgets/home_group_header.dart';
 import '../widgets/ios_style.dart';
+import '../widgets/liquid_bottom_tab_bar.dart';
 import '../widgets/mac_action_button.dart';
 import '../widgets/staggered_sessions.dart';
 import '../widgets/swipe_actions.dart';
@@ -291,8 +292,8 @@ class _HomeScreenState extends State<HomeScreen>
     final keyboardInset = MediaQuery.viewInsetsOf(context).bottom;
     final tabBarGap = desktopNav
         ? 0.0
-        : (_mobileTabBarHeight - keyboardInset)
-              .clamp(0.0, _mobileTabBarHeight)
+        : (LiquidBottomTabBar.reservedHeight - keyboardInset)
+              .clamp(0.0, LiquidBottomTabBar.reservedHeight)
               .toDouble();
     // 引擎决定主页 tab 套件：拾忆（会话/功能/文件/终端）或 DS Harness
     //（工作数据/功能/文件/终端）。终端两端都接内嵌 proot。
@@ -414,7 +415,7 @@ class _HomeScreenState extends State<HomeScreen>
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      child: _IosTabBar(
+                      child: LiquidBottomTabBar(
                         currentIndex: _tab,
                         onTap: _selectTab,
                         tabs: tabs,
@@ -526,129 +527,6 @@ Widget buildFilesTabForEngine(ShiyiState shiyi) {
   return shiyi.settings.agentEngine == 'dsh'
       ? DshFilesTab(shiyi: shiyi)
       : FilesScreen(shiyi: shiyi);
-}
-
-/// iOS 风格底部 Tab：毛玻璃背景、选中胶囊、SF 风格图标+文字。
-const double _mobileTabBarHeight = 58;
-
-class _IosTabBar extends StatelessWidget {
-  final int currentIndex;
-  final ValueChanged<int> onTap;
-  final List<HomeTabSpec> tabs;
-  const _IosTabBar({
-    required this.currentIndex,
-    required this.onTap,
-    required this.tabs,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final dark = Theme.of(context).brightness == Brightness.dark;
-    final barBg = dark ? const Color(0xE61C1C1E) : const Color(0xE6F2F2F7);
-    final hairline = dark
-        ? Colors.white.withValues(alpha: 0.12)
-        : Colors.black.withValues(alpha: 0.08);
-    return Container(
-      decoration: BoxDecoration(
-        color: barBg,
-        border: Border(top: BorderSide(color: hairline)),
-      ),
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-          child: SafeArea(
-            top: false,
-            child: SizedBox(
-              height: _mobileTabBarHeight,
-              child: Row(
-                children: [
-                  for (var i = 0; i < tabs.length; i++)
-                    Expanded(
-                      child: _IosTabItem(
-                        icon: tabs[i].icon,
-                        selectedIcon: tabs[i].selectedIcon,
-                        label: tabs[i].label,
-                        selected: i == currentIndex,
-                        onTap: () => onTap(i),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _IosTabItem extends StatelessWidget {
-  final IconData icon;
-  final IconData selectedIcon;
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-  const _IosTabItem({
-    required this.icon,
-    required this.selectedIcon,
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final dark = Theme.of(context).brightness == Brightness.dark;
-    final activeColor = dark
-        ? const Color(0xFF0A84FF)
-        : const Color(0xFF007AFF);
-    final color = selected
-        ? activeColor
-        : (dark ? CupertinoColors.systemGrey : CupertinoColors.secondaryLabel);
-    return Semantics(
-      button: true,
-      selected: selected,
-      label: label,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 180),
-              curve: Curves.easeOut,
-              width: 50,
-              height: 30,
-              decoration: BoxDecoration(
-                color: selected
-                    ? activeColor.withValues(alpha: 0.14)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Center(
-                child: Icon(
-                  selected ? selectedIcon : icon,
-                  size: 24,
-                  color: color,
-                ),
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 10.5,
-                height: 1,
-                fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-                color: color,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 /// Windows 桌面侧边导航栏：宽窗口时替代底部 Tab。

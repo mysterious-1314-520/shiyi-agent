@@ -34,7 +34,7 @@ void main() {
     test('Android 交互壳走 init-host 进 proot 里的 bash', () {
       final spec = EmbeddedShell.androidInteractive(
         initHostPath:
-            '/data/data/com.shiyi.agent/files/termux/local/bin/init-host',
+            '/data/data/io.github.jiusis.shiyi/files/termux/local/bin/init-host',
       );
       expect(spec.executable, '/system/bin/sh');
       expect(spec.arguments.first, endsWith('/init-host'));

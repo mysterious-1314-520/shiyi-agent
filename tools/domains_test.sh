@@ -1,7 +1,7 @@
 #!/system/bin/sh
 # verify all new DSH API domains against live service
-U=/data/user/0/com.shiyi.agent/files/termux/usr
-P=/data/user/0/com.shiyi.agent/files/termux
+U=/data/user/0/io.github.jiusis.shiyi/files/termux/usr
+P=/data/user/0/io.github.jiusis.shiyi/files/termux
 export HOME="$P/home"
 export TMPDIR="$P/tmp"
 export PATH="$U/bin:/system/bin"

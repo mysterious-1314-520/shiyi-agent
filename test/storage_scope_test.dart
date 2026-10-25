@@ -21,7 +21,7 @@ void main() {
       expect(StorageScope.isWithinSdRoot('/storage'), isFalse);
       expect(StorageScope.isWithinSdRoot('/data'), isFalse);
       expect(StorageScope.isWithinSdRoot('/'), isFalse);
-      expect(StorageScope.isWithinSdRoot('/data/data/com.shiyi.agent'), isFalse);
+      expect(StorageScope.isWithinSdRoot('/data/data/io.github.jiusis.shiyi'), isFalse);
     });
 
     test('非 Android 不限制', () {

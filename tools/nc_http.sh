@@ -1,5 +1,5 @@
 #!/system/bin/sh
-U=/data/user/0/com.shiyi.agent/files/termux/usr
+U=/data/user/0/io.github.jiusis.shiyi/files/termux/usr
 echo "== current ip rules (lo/tun0) =="
 ip rule show 2>/dev/null | grep -E "iif lo|tun0" | head -12
 echo "== nc connect with response wait (root) =="

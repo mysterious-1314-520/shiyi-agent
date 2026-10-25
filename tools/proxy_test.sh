@@ -8,6 +8,6 @@ cat /proc/net/tcp 2>/dev/null | grep -i "0C08" | grep " 01 " | head -3
 echo "== who are mark.via connections from? sockets in 10890 =="
 ls -la /proc/10890/fd 2>/dev/null | grep -c socket
 echo "== dsh service log again =="
-tail -5 /data/user/0/com.shiyi.agent/files/termux/tmp/dsh_single.log 2>&1
+tail -5 /data/user/0/io.github.jiusis.shiyi/files/termux/tmp/dsh_single.log 2>&1
 echo "== check FlClash access control per-app? =="
 cat /data/user/0/com.follow.clash.dev/shared_prefs/FlutterSharedPreferences.xml 2>/dev/null | grep -oE "accessControlProps[^}]*}" | head -2

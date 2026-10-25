@@ -7,16 +7,16 @@
 - **⚠️ 2026-08-08 实测教训：`flutter install --debug` 不可靠**——其内部先跑 `adb install -t -r`，失败时会**自动卸载重装**（日志出现 `Uninstalling old version...`），app 数据被清空。已两次踩坑。
   - **首选安装方式：手动 `adb install -r`**（同一 debug keystore 下实测 Success，数据保留）。
   - 用 `flutter install` 时：装完必须检查输出里**没有** `Uninstalling old version...`，有则说明走了卸载（数据已清）。
-  - 装前可先验签：`adb shell dumpsys package com.shiyi.agent | grep signatures`（同签名覆盖才不清数据）。
-  - 备份数据（debug 包可 run-as）：`adb exec-out run-as com.shiyi.agent cat files/... `（app_flutter/shiyi_agent.db + shared_prefs/）。
-- **2026-08-14 起 debug 变体也使用正式签名**（`keystore.jks`，见 `android/app/build.gradle.kts`）：
+  - 装前可先验签：`adb shell dumpsys package io.github.jiusis.shiyi | grep signatures`（同签名覆盖才不清数据）。
+  - 备份数据（debug 包可 run-as）：`adb exec-out run-as io.github.jiusis.shiyi cat files/... `（app_flutter/shiyi_agent.db + shared_prefs/）。
+- **2026-08-14 起 debug 变体也使用正式签名**（`citizen.jks`，见 `android/app/build.gradle.kts`）：
   - debug 构建的 APK 与正式版签名一致，`adb install -r` 覆盖安装不会因签名不一致失败/清数据；
   - debug 包保持 debuggable，可 `run-as` 备份/验证数据；
   - 注意：因此**构建 debug 同样需要 `KEYSTORE_PASSWORD`**（`android/local.properties` 或环境变量），缺密码时 debug 构建直接报错。
 
 ## 真机环境
 - 常用测试设备：`<安卓真机 A>`（近期覆盖安装验证）、`<安卓机型>`（Android 16 / API 36）
-- 应用包名：`com.shiyi.agent`（由 `com.hermes.hermes_agent_app` 改名而来）
+- 应用包名：`io.github.jiusis.shiyi`（2026-10-25 起；此前为 `com.shiyi.agent`，最初为 `com.hermes.hermes_agent_app`）。改包名后旧包与新包在手机上是两个独立应用、数据不跟随，需手动从旧包迁移。
 
 ## 发布正式包（规范，2026-10-16 定）
 - 正式包文件名统一 **`shiyi-agent-<版本号>.apk`**（如 `shiyi-agent-v2.6.11.apk`），仓库根放一份、GitHub Release 资产用同一个名字。
@@ -110,7 +110,7 @@
 - 弹层选项走 `CupertinoListSection.insetGrouped`：标题 Body 17（行高 22）、说明 Footnote 13（行高 18）、垂直 padding 12、leading 29 圆角 7。禁止裸默认 `CupertinoListTile` 副标题 6px 内边距（会顶格顶满）。
 
 ## 主页底部 Tab
-- 手机端底部 Tab 悬浮覆盖。内容留白 `_mobileTabBarHeight(58) - viewInsets.bottom`（下限 0）。键盘弹起清掉这段空白，键盘收起仍给 Tab 留空。外层 `Scaffold(resizeToAvoidBottomInset: false)`，Tab 贴屏幕底。禁止把 58px 死垫叠在键盘上面——内层会话 Scaffold 仍按 viewInsets 垫底，再叠死 58 会在输入法上方多出一条空带。拾忆与 DSH 共用这一层。
+- 手机端底部 Tab 是悬浮液态玻璃胶囊（共享 `LiquidBottomTabBar`，包 `liquid_glass_easy` 的 `LiquidGlassTabBar`，左右悬浮 16、底部间隙 4、胶囊高 54）。内容留白 `LiquidBottomTabBar.reservedHeight(58) - viewInsets.bottom`（下限 0）。键盘弹起清掉这段空白，键盘收起仍给 Tab 留空。外层 `Scaffold(resizeToAvoidBottomInset: false)`，胶囊贴 SafeArea 内侧悬浮、不贴满屏宽。禁止把 58px 死垫叠在键盘上面——内层会话 Scaffold 仍按 viewInsets 垫底，再叠死 58 会在输入法上方多出一条空带。拾忆与 DSH 共用这一层。
 
 ## 拾忆主页长按拖拽
 - 项目卡片、会话卡片长按拖起**整张卡片**（头像/标题/背景），不用半透明标题影子。

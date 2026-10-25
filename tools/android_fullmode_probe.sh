@@ -1,7 +1,7 @@
 #!/system/bin/sh
 # 真机完整模式探测：node-pty / koffi 原生模块是否可加载。
-# 用法：adb push 到 /data/local/tmp 后 run-as com.shiyi.agent sh 执行。
-R=/data/user/0/com.shiyi.agent/files/termux
+# 用法：adb push 到 /data/local/tmp 后 run-as io.github.jiusis.shiyi sh 执行。
+R=/data/user/0/io.github.jiusis.shiyi/files/termux
 export PATH=$R/bin-shim:$R/usr/bin:$R/usr/bin/applets:/system/bin:/system/xbin
 export HOME=$R/home
 export PREFIX=$R/usr

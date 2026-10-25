@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拾忆 ShiYi · 下载</title>
+<meta name="description" content="拾忆 ShiYi——运行在 Android 与 Windows 的个人 AI 工作台。下载最新版 APK，让 AI 参与你的实际工作。">
+<meta property="og:title" content="拾忆 ShiYi · 下载">
+<meta property="og:description" content="个人 AI 工作台：智能对话、长期记忆、项目文件、内置终端、技能系统、群聊协作。">
+<meta property="og:type" content="website">
+<style>
+:root{
+  --bg:#05060f;
+  --card:rgba(255,255,255,.055);
+  --card-brd:rgba(255,255,255,.11);
+  --text:#eef1f8;
+  --muted:#9aa3b8;
+  --accent:#5b9dff;
+  --accent2:#3ddc9a;
+  --grad:linear-gradient(135deg,#5b9dff 0%,#8a7bff 55%,#3ddc9a 130%);
+  --radius:24px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  transform:translateY(var(--pyA,0px));
+  background:
+    radial-gradient(900px 600px at 85% -10%,rgba(91,157,255,.16),transparent 60%),
+    radial-gradient(700px 520px at -10% 30%,rgba(138,123,255,.13),transparent 60%),
+    radial-gradient(800px 600px at 50% 110%,rgba(61,220,154,.10),transparent 60%);
+}
+.pbg{
+  position:fixed;inset:-14% -8%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(560px 420px at 78% 12%,rgba(91,157,255,.20),transparent 62%),
+    radial-gradient(520px 460px at 12% 68%,rgba(138,123,255,.17),transparent 62%);
+  filter:blur(46px);
+  transform:translateY(var(--pyB,0px));
+  animation:pbgdrift 20s ease-in-out infinite alternate;
+  will-change:transform;
+}
+@keyframes pbgdrift{
+  from{transform:translateY(var(--pyB,0px))}
+  to{transform:translate(46px,calc(-40px + var(--pyB,0px))) scale(1.06)}
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+
+/* nav */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(5,6,15,.62);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav-in{max-width:1060px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:.5px}
+.brand svg{flex:0 0 auto}
+.nav-links{margin-left:auto;display:flex;gap:22px;font-size:14px;color:var(--muted)}
+.nav-links a:hover{color:var(--text)}
+.nav-dl{
+  padding:8px 18px;border-radius:999px;background:var(--grad);color:#06070d !important;
+  font-weight:700;font-size:14px;white-space:nowrap;
+}
+
+/* hero */
+.hero{padding:74px 0 46px;text-align:center}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(12px);
+  font-size:13px;color:var(--muted);margin-bottom:26px;
+}
+.badge b{color:var(--accent2);font-weight:600}
+.hero h1{
+  font-size:clamp(40px,7.4vw,68px);line-height:1.12;font-weight:800;letter-spacing:1px;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .sub{max-width:640px;margin:20px auto 0;font-size:clamp(15px,2.6vw,18px);color:var(--muted)}
+.hero .platforms{margin-top:18px;font-size:13px;color:var(--muted);letter-spacing:.6px}
+.hero .platforms span{margin:0 8px;opacity:.55}
+
+/* glass card */
+.glass{
+  position:relative;
+  background:var(--card);border:1px solid var(--card-brd);border-radius:var(--radius);
+  backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:0 18px 50px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -1px 0 rgba(0,0,0,.3),
+    inset 1px 0 0 rgba(255,255,255,.05),
+    inset -1px 0 0 rgba(255,255,255,.05);
+}
+.glass::before{
+  content:"";position:absolute;left:14px;right:14px;top:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent 4%,rgba(255,255,255,.5) 50%,transparent 96%);
+}
+
+/* download card */
+.dl-card{max-width:720px;margin:36px auto 0;padding:34px 30px;text-align:center}
+.dl-title{font-size:15px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.btn-main{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:19px 30px;border-radius:18px;
+  background:linear-gradient(115deg,#5b9dff,#8a7bff 45%,#3ddc9a 85%,#5b9dff);
+  background-size:260% 100%;background-position:0% 50%;color:#06070d !important;
+  font-size:19px;font-weight:800;letter-spacing:.5px;
+  transition:transform .16s ease,box-shadow .16s ease,background-position .9s ease;
+  box-shadow:0 12px 34px rgba(91,157,255,.35);
+}
+.btn-main::after{
+  content:"";position:absolute;top:0;bottom:0;left:0;width:55%;pointer-events:none;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.42),transparent);
+  transform:translateX(-170%) skewX(-16deg);
+}
+.btn-main:hover::after{animation:sheen .75s ease-out}
+@keyframes sheen{to{transform:translateX(340%) skewX(-16deg)}}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 16px 42px rgba(91,157,255,.45);background-position:100% 50%}
+.btn-main small{font-weight:600;font-size:13px;opacity:.75}
+.btn-sub{display:inline-block;margin-top:16px;font-size:14px;color:var(--accent)}
+.btn-sub:hover{text-decoration:underline}
+.specs{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px;
+}
+.spec{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 8px}
+.spec .k{font-size:11.5px;color:var(--muted);letter-spacing:1px}
+.spec .v{font-size:14.5px;font-weight:700;margin-top:3px;word-break:break-all}
+.sha-row{
+  margin-top:16px;display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;
+  font-size:12.5px;color:var(--muted);
+}
+.sha-row code{
+  font-family:var(--mono);font-size:12px;color:#cbd3e6;background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:6px 10px;
+  max-width:100%;overflow-x:auto;white-space:nowrap;
+}
+.copy-btn{
+  cursor:pointer;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);
+  color:var(--text);border-radius:9px;padding:6px 13px;font-size:12.5px;
+}
+.copy-btn:hover{background:rgba(255,255,255,.13)}
+
+/* sections */
+section{padding:54px 0 8px}
+.sec-head{text-align:center;margin-bottom:30px}
+.sec-head h2{font-size:clamp(24px,4.5vw,34px);font-weight:800;letter-spacing:1px}
+.sec-head p{color:var(--muted);font-size:14.5px;margin-top:8px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{padding:24px 22px}
+.step .no{
+  width:34px;height:34px;border-radius:11px;background:var(--grad);color:#06070d;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin-bottom:14px;
+}
+.step h3{font-size:16.5px;margin-bottom:7px}
+.step p{font-size:13.5px;color:var(--muted)}
+
+/* shots */
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.shot{
+  border-radius:16px;overflow:hidden;border:1px solid var(--card-brd);
+  background:rgba(255,255,255,.04);aspect-ratio:9/16;
+}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot-cap{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
+
+/* features */
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat{padding:24px 22px}
+.feat .ic{
+  width:42px;height:42px;border-radius:13px;background:rgba(91,157,255,.16);
+  border:1px solid rgba(91,157,255,.32);display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+}
+.feat h3{font-size:16.5px;margin-bottom:7px}
+.feat p{font-size:13.5px;color:var(--muted)}
+
+/* changelog */
+.log{max-width:780px;margin:0 auto;padding:30px 28px}
+.log + .log{margin-top:16px}
+.log .ver{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.log .ver b{font-size:19px}
+.tag{
+  font-size:12px;font-weight:700;padding:3px 11px;border-radius:999px;
+  background:rgba(61,220,154,.15);border:1px solid rgba(61,220,154,.4);color:var(--accent2);
+}
+.tag.old{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);color:var(--muted)}
+.log time{font-size:12.5px;color:var(--muted);margin-left:auto}
+.log ul{list-style:none}
+.log li{
+  font-size:14.5px;color:#cfd6e8;padding:5px 0 5px 20px;position:relative;
+}
+.log li::before{content:"";position:absolute;left:2px;top:14px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.log li b{color:var(--text)}
+
+/* links */
+.links{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.lnk{
+  padding:20px 16px;text-align:center;transition:transform .15s ease,border-color .15s ease;
+}
+.lnk:hover{transform:translateY(-3px);border-color:rgba(91,157,255,.5)}
+.lnk h3{font-size:15.5px;margin-bottom:5px}
+.lnk p{font-size:12.5px;color:var(--muted)}
+
+/* notice */
+.notice{
+  max-width:780px;margin:26px auto 0;padding:18px 22px;border-radius:16px;
+  background:rgba(255,196,72,.07);border:1px solid rgba(255,196,72,.28);
+  font-size:13.5px;color:#e8d9ae;
+}
+.notice b{color:#ffd97a}
+
+/* footer */
+footer{
+  margin-top:64px;padding:34px 0 46px;border-top:1px solid rgba(255,255,255,.07);
+  text-align:center;font-size:13px;color:var(--muted);
+}
+footer a{color:var(--accent)}
+footer .fl{margin-top:9px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:860px){
+  .shots,.feats{grid-template-columns:repeat(2,1fr)}
+  .links{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr}
+  .specs{grid-template-columns:repeat(2,1fr)}
+  .nav-links a:not(.nav-dl){display:none}
+  .hero{padding:54px 0 34px}
+  .dl-card{padding:26px 18px}
+}
+@media(max-width:520px){
+  .shots{grid-template-columns:repeat(2,1fr);gap:10px}
+  .feats{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="pbg" aria-hidden="true"></div>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="#top">
+      <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="#eef1f8"/>
+        <path d="M32 2a30 30 0 0 1 0 60a15 15 0 0 1 0-30a15 15 0 0 0 0-30z" fill="#05060f"/>
+        <circle cx="32" cy="17" r="5.5" fill="#eef1f8"/>
+        <circle cx="32" cy="47" r="5.5" fill="#05060f"/>
+      </svg>
+      拾忆 ShiYi
+    </a>
+    <div class="nav-links">
+      <a href="#shots">截图</a>
+      <a href="#features">功能</a>
+      <a href="#changelog">更新</a>
+      <a href="#links">更多</a>
+      <a class="nav-dl" href="shiyi-agent-v2.6.12.apk" download>下载 APK</a>
+    </div>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+<header class="hero wrap">
+  <div class="badge">当前版本 <b>v2.6.12</b> · build 37 · 2026-10-25</div>
+  <h1>拾忆 ShiYi</h1>
+  <p class="sub">运行在 Android 手机与 Windows 桌面的个人 AI 工作台 —— 让 AI 不只是回答问题，而是参与你的实际工作：读取资料、修改文件、运行命令、整理项目。</p>
+  <p class="platforms">Android<span>|</span>Windows<span>|</span>Flutter<span>|</span>GPL-3.0</p>
+
+  <div class="dl-card glass">
+    <div class="dl-title">ANDROID APK 下载</div>
+    <a class="btn-main" href="shiyi-agent-v2.6.12.apk" download onclick="return smartDownload(event)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>
+      下载 shiyi-agent-v2.6.12.apk
+      <small>20.2 MB</small>
+    </a>
+    <a class="btn-sub" href="https://github.com/JIUSIS/shiyi-agent/releases" target="_blank" rel="noopener">或前往 GitHub Releases 获取历史版本</a>
+
+    <div class="specs">
+      <div class="spec"><div class="k">版本</div><div class="v">2.6.12 (37)</div></div>
+      <div class="spec"><div class="k">大小</div><div class="v">20.2 MB</div></div>
+      <div class="spec"><div class="k">架构</div><div class="v">arm64-v8a</div></div>
+      <div class="spec"><div class="k">系统要求</div><div class="v">Android 7.0+</div></div>
+    </div>
+
+    <div class="sha-row">
+      <span>SHA-256</span>
+      <code id="sha">502e2d837180ef58b33bb31e4cdf231f5bc08b3c2499df020c90709d9856455f</code>
+      <button class="copy-btn" onclick="copySha(this)">复制</button>
+    </div>
+  </div>
+</header>
+
+<section id="install" class="wrap">
+  <div class="sec-head">
+    <h2>三步开始使用</h2>
+    <p>从装包到让 AI 干活，跟着新手教程约 20 分钟</p>
+  </div>
+  <div class="steps">
+    <div class="step glass">
+      <div class="no">1</div>
+      <h3>下载并安装</h3>
+      <p>下载 APK 后直接安装。若系统提示「未知来源」，在设置中允许浏览器或文件管理器安装应用即可。</p>
+    </div>
+    <div class="step glass">
+      <div class="no">2</div>
+      <h3>配置模型 API</h3>
+      <p>打开设置 → 模型 API，填入服务商地址与 Key。支持 OpenAI、Responses、Anthropic 三条协议与主流中转。</p>
+    </div>
+    <div class="step glass">
+      <div class="no">3</div>
+      <h3>说第一句话</h3>
+      <p>新建会话，把资料丢给它、把项目交给它。首次使用建议先看新手教程，20 分钟走完全程。</p>
+    </div>
+  </div>
+  <div class="notice">
+    <b>安装提示：</b>v2.6.12 起应用包名变更为 <b>io.github.jiusis.shiyi</b>，与旧版 <b>com.shiyi.agent</b> 是两个独立应用：安装新版后旧版及其数据仍在，数据（API Key、模型、会话、记忆）需手动迁移或在新版重新配置，旧版可自行保留或卸载。同包名后续版本请直接 <b>adb install -r</b> 覆盖升级、数据全部保留，<b>请勿先卸载再安装</b>（卸载会清空应用数据）。正式包签名指纹 SHA-256：<b>5a3936d1b4744ed3901864cf5f507d048a5620971230e1945d54dd16f555350b</b>。
+  </div>
+</section>
+
+<section id="shots" class="wrap">
+  <div class="sec-head">
+    <h2>界面预览</h2>
+    <p>iOS HIG 风格：毛玻璃导航、Inset Grouped 分组卡片、深浅色跟随</p>
+  </div>
+  <div class="shots">
+    <div><div class="shot"><img src="docs/screenshots/2.0/welcome.jpg" alt="欢迎页" loading="lazy"></div><div class="shot-cap">欢迎页</div></div>
+    <div><div class="shot"><img src="docs/screenshots/2.0/home-sessions.jpg" alt="首页项目会话" loading="lazy"></div><div class="shot-cap">项目与会话</div></div>
+    <div><div class="shot"><img src="docs/screenshots/2.0/chat-tools.jpg" alt="工具调用" loading="lazy"></div><div class="shot-cap">工具调用</div></div>
+    <div><div class="shot"><img src="docs/screenshots/2.0/chat-directory.jpg" alt="会话目录" loading="lazy"></div><div class="shot-cap">会话目录</div></div>
+    <div><div class="shot"><img src="docs/screenshots/2.0/memory.jpg" alt="长期记忆" loading="lazy"></div><div class="shot-cap">长期记忆</div></div>
+    <div><div class="shot"><img src="docs/screenshots/2.0/skill.jpg" alt="技能系统" loading="lazy"></div><div class="shot-cap">技能系统</div></div>
+    <div><div class="shot"><img src="docs/screenshots/2.0/files.jpg" alt="项目文件" loading="lazy"></div><div class="shot-cap">项目文件</div></div>
+    <div><div class="shot"><img src="docs/screenshots/2.0/features.jpg" alt="功能页" loading="lazy"></div><div class="shot-cap">功能页</div></div>
+    <div><div class="shot"><img src="docs/screenshots/2.0/settings-api.jpg" alt="模型 API 设置" loading="lazy"></div><div class="shot-cap">模型 API</div></div>
+  </div>
+</section>
+
+<section id="features" class="wrap">
+  <div class="sec-head">
+    <h2>它能做什么</h2>
+    <p>大语言模型 + 长期记忆 + 项目管理 + 内置终端 + 技能系统</p>
+  </div>
+  <div class="feats">
+    <div class="feat glass">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5b9dff" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5z"/></svg></div>
+      <h3>智能对话</h3>
+      <p>三条协议自由切换，思考档位随模型自动匹配，流式输出与思考链全程可见。</p>
+    </div>
+    <div class="feat glass">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5b9dff" stroke-width="2" stroke-linecap="round"><path d="M12 3a4 4 0 0 0-4 4v1a4 4 0 0 0 0 8v1a4 4 0 0 0 8 0v-1a4 4 0 0 0 0-8V7a4 4 0 0 0-4-4z"/></svg></div>
+      <h3>长期记忆</h3>
+      <p>跨会话记住你的偏好、项目与约定，越用越懂你；上下文压缩随时可手动触发。</p>
+    </div>
+    <div class="feat glass">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5b9dff" stroke-width="2" stroke-linecap="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+      <h3>项目与文件</h3>
+      <p>按项目组织会话与资料，AI 直接读写项目文件，改动过程清晰可回溯。</p>
+    </div>
+    <div class="feat glass">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5b9dff" stroke-width="2" stroke-linecap="round"><path d="m5 8 4 4-4 4"/><path d="M12 16h7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>
+      <h3>内置终端</h3>
+      <p>Android 内嵌 Alpine 环境，Windows 走本机 WSL / Git Bash / PowerShell，命令行随手可开。</p>
+    </div>
+    <div class="feat glass">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5b9dff" stroke-width="2" stroke-linecap="round"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="m3 7 9 5 9-5"/><path d="M12 12v10"/></svg></div>
+      <h3>技能系统</h3>
+      <p>把重复流程沉淀成可安装的技能 zip，一次封装、处处复用。</p>
+    </div>
+    <div class="feat glass">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5b9dff" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M15 19a4.5 4.5 0 0 1 6 0"/></svg></div>
+      <h3>群聊协作</h3>
+      <p>多个 Agent 按公司结构组队：分角色、定人设、层级汇报，一个项目多人分工。</p>
+    </div>
+  </div>
+</section>
+
+<section id="changelog" class="wrap">
+  <div class="sec-head">
+    <h2>最近更新</h2>
+    <p>完整记录见仓库 CHANGELOG</p>
+  </div>
+
+  <div class="log glass">
+    <div class="ver"><b>v2.6.12</b><span class="tag">当前版本</span><time>2026-10-25</time></div>
+    <ul>
+      <li><b>应用包名升级为 io.github.jiusis.shiyi</b>：与旧版（com.shiyi.agent）是两个独立应用，安装新版后旧版及数据仍在，数据需手动迁移或在新版重新配置。</li>
+      <li><b>首页底栏换成液态玻璃悬浮胶囊</b>：更贴合内容区、键盘弹起时自动让位，不再垫出空白。</li>
+      <li>修复桌面端模型同步的一处编译问题。</li>
+      <li>版本号与包信息对齐发布规范（2.6.12 / versionCode 37）。</li>
+    </ul>
+  </div>
+
+  <div class="log glass">
+    <div class="ver"><b>v2.6.11</b><span class="tag old">上一版</span><time>2026-10-16</time></div>
+    <ul>
+      <li><b>模型输出不再被人为上限截断</b>：默认不限制输出长度，四项上限均可在设置中自行收紧，老配置自动迁移。</li>
+      <li><b>网络断连每轮自动重试</b>：修掉按 UTF-16 截断切碎 emoji 导致的非法请求体，连接稳定性大幅改善。</li>
+      <li><b>首字延迟降低约 3 秒</b>：活人感数据并行拉取且限时，慢就跳过，绝不拖住请求。</li>
+      <li><b>群聊改成真正的层级行动</b>：一批全员并行、整批汇报完才进下一批，群成员拿到完整工具集。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="links" class="wrap">
+  <div class="sec-head">
+    <h2>更多入口</h2>
+    <p>教程、日志与桌面版</p>
+  </div>
+  <div class="links">
+    <a class="lnk glass" href="docs/新手教程.md"><h3>新手教程</h3><p>装包 → 配模型 → 第一句话</p></a>
+    <a class="lnk glass" href="docs/拾忆使用教程.md"><h3>使用教程</h3><p>功能与进阶玩法</p></a>
+    <a class="lnk glass" href="CHANGELOG.md"><h3>更新日志</h3><p>每个版本的完整变化</p></a>
+    <a class="lnk glass" href="https://github.com/JIUSIS/shiyi-agent/releases" target="_blank" rel="noopener"><h3>GitHub Releases</h3><p>历史版本与 Windows 桌面包</p></a>
+    <a class="lnk glass" href="https://github.com/JIUSIS/shiyi-agent" target="_blank" rel="noopener"><h3>源码仓库</h3><p>JIUSIS/shiyi-agent · GPL-3.0</p></a>
+    <a class="lnk glass" href="https://github.com/JIUSIS/shiyi-agent/blob/main/docs/新手教程.md" target="_blank" rel="noopener"><h3>在线教程</h3><p>GitHub 上直接阅读</p></a>
+    <a class="lnk glass" href="https://github.com/JIUSIS/shiyi-agent/releases/latest" target="_blank" rel="noopener"><h3>最新 Release</h3><p>正式发布渠道</p></a>
+    <a class="lnk glass" href="https://github.com/JIUSIS/shiyi-agent/issues" target="_blank" rel="noopener"><h3>问题反馈</h3><p>提 Issue 告诉我们</p></a>
+  </div>
+</section>
+
+<footer>
+  <div>拾忆 ShiYi · 个人 AI 工作台 · 以 GPL-3.0 开源</div>
+  <div class="fl">
+    <a href="https://github.com/JIUSIS/shiyi-agent" target="_blank" rel="noopener">GitHub</a>
+    <a href="CHANGELOG.md">CHANGELOG</a>
+    <a href="https://github.com/JIUSIS/shiyi-agent/releases" target="_blank" rel="noopener">Releases</a>
+    <a href="https://github.com/Kyant0/AndroidLiquidGlass" target="_blank" rel="noopener">液态玻璃 · AndroidLiquidGlass</a>
+  </div>
+</footer>
+
+<script>
+function copySha(btn){
+  var text=document.getElementById('sha').textContent;
+  var done=function(){btn.textContent='已复制';setTimeout(function(){btn.textContent='复制'},1600)};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done)}
+  else{
+    var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);
+    ta.select();document.execCommand('copy');document.body.removeChild(ta);done();
+  }
+}
+function smartDownload(ev){
+  if(typeof fetch!=='function'){return true}
+  var el=ev.currentTarget;
+  if(el.dataset.busy){return false}
+  el.dataset.busy='1';
+  var original=el.innerHTML;
+  var NAME='shiyi-agent-v2.6.12.apk';
+  var TOTAL=20188926;
+  var parts=['/dl/part00','/dl/part01','/dl/part02','/dl/part03','/dl/part04','/dl/part05','/dl/part06','/dl/part07'];
+  var received=0,next=0,failed=false;
+  var bufs=new Array(parts.length);
+  function render(){
+    var pct=Math.min(100,Math.round(received/TOTAL*100));
+    el.innerHTML='下载中 '+pct+'% <small>'+(received/1000000).toFixed(1)+' / 20.2 MB</small>';
+  }
+  render();
+  function worker(){
+    return new Promise(function(resolve,reject){
+      function step(){
+        if(failed){return reject(new Error('failed'))}
+        var i=next++;
+        if(i>=parts.length){return resolve()}
+        fetch(parts[i]).then(function(r){
+          if(!r.ok){throw new Error('part '+i)}
+          return r.arrayBuffer();
+        }).then(function(b){
+          bufs[i]=b;received+=b.byteLength;render();step();
+        }).catch(function(e){failed=true;reject(e)});
+      }
+      step();
+    });
+  }
+  var pool=[];for(var w=0;w<4;w++){pool.push(worker())}
+  Promise.all(pool).then(function(){
+    var blob=new Blob(bufs,{type:'application/vnd.android.package-archive'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=NAME;
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(a.href)},120000);
+    el.innerHTML='已保存 '+NAME;
+  }).catch(function(){
+    var a=document.createElement('a');
+    a.href=NAME;a.download=NAME;
+    document.body.appendChild(a);a.click();a.remove();
+    el.innerHTML='已切换直接下载';
+  }).then(function(){
+    setTimeout(function(){el.innerHTML=original;delete el.dataset.busy},2800);
+  });
+  return false;
+}
+
+// parallax: background layers slide behind the glass cards
+var rafQueued=false;
+window.addEventListener('scroll',function(){
+  if(rafQueued){return}
+  rafQueued=true;
+  requestAnimationFrame(function(){
+    var y=Math.min(window.scrollY||0,1400);
+    var r=document.documentElement.style;
+    r.setProperty('--pyA',(-(y*0.025)).toFixed(1)+'px');
+    r.setProperty('--pyB',(-(y*0.06)).toFixed(1)+'px');
+    rafQueued=false;
+  });
+},{passive:true});
+</script>
+
+</body>
+</html>

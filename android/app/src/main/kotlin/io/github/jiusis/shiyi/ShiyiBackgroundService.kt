@@ -1,4 +1,4 @@
-package com.shiyi.agent
+package io.github.jiusis.shiyi
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -23,7 +23,7 @@ class ShiyiBackgroundService : Service() {
     companion object {
         private const val CHANNEL_ID = "shiyi_background_tasks"
         private const val NOTIFICATION_ID = 43120
-        private const val ACTION_SYNC = "com.shiyi.agent.action.SYNC"
+        private const val ACTION_SYNC = "io.github.jiusis.shiyi.action.SYNC"
         private const val EXTRA_ACTIVE_SESSIONS = "activeSessions"
         private const val EXTRA_RELAY_ENABLED = "relayEnabled"
 

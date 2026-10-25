@@ -1,4 +1,4 @@
-package com.shiyi.agent
+package io.github.jiusis.shiyi
 
 import android.content.Intent
 import android.content.pm.PackageManager

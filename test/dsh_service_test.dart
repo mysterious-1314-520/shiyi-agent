@@ -108,7 +108,7 @@ void main() {
 
     test('失败退出码不当版本，即使输出里有数字', () {
       const err =
-          'CANNOT LINK EXECUTABLE: /data/user/0/com.shiyi.agent/files/termux/usr/lib/libz.so.1.3.2 is for EM_AARCH64';
+          'CANNOT LINK EXECUTABLE: /data/user/0/io.github.jiusis.shiyi/files/termux/usr/lib/libz.so.1.3.2 is for EM_AARCH64';
       expect(DshService.parseCliVersion(err, 1), isNull);
       expect(DshService.parseCliVersion('0.1.0-rc.6', 127), isNull);
     });
