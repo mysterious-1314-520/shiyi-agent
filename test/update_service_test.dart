@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -5,6 +7,22 @@ import 'package:shiyi_agent_app/services/update_service.dart';
 import 'package:shiyi_agent_app/widgets/markdown_text.dart';
 
 void main() {
+  test('appVersion 兜底常量与 pubspec 版本一致', () {
+    final pubspec = File('pubspec.yaml').readAsStringSync();
+    final match = RegExp(r'^version:\s*(\S+)', multiLine: true).firstMatch(
+      pubspec,
+    );
+    expect(match, isNotNull, reason: 'pubspec.yaml 缺少 version 字段');
+    final pubspecVersion = match!.group(1)!.split('+').first;
+    expect(
+      UpdateService.appVersion,
+      pubspecVersion,
+      reason:
+          'UpdateService.appVersion 已过期：该常量在 PackageInfo 读取失败时作为'
+          '本地版本参与更新比较，落后会导致误报「发现新版本」。发版改版本号时同步它。',
+    );
+  });
+
   group('UpdateService.compareVersion', () {
     test('相等版本返回 0', () {
       expect(UpdateService.compareVersion('1.1.5', '1.1.5'), 0);

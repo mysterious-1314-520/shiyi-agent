@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import '../widgets/chat_liquid_glass.dart';
 import '../core/app_state.dart';
+import '../core/home_tab_scroll_top.dart';
 import '../services/file_workspace.dart';
 import '../services/permission_service.dart';
 import '../services/storage_scope.dart';
@@ -31,10 +32,22 @@ class _FilesScreenState extends State<FilesScreen> {
   String? _error;
   Future<List<FileSystemEntity>>? _entriesFuture;
 
+  /// 注册到 [HomeTabScrollTop] 供「再点当前 tab 回顶」（空态 / 错误态
+  /// 无列表挂载时 toTop 静默跳过）。
+  final ScrollController _listCtrl = ScrollController();
+
   @override
   void initState() {
     super.initState();
+    HomeTabScrollTop.register(2, _listCtrl);
     _init();
+  }
+
+  @override
+  void dispose() {
+    HomeTabScrollTop.unregister(2, _listCtrl);
+    _listCtrl.dispose();
+    super.dispose();
   }
 
   Future<void> _init() async {
@@ -274,6 +287,7 @@ class _FilesScreenState extends State<FilesScreen> {
           );
         }
         return ListView(
+          controller: _listCtrl,
           padding: const EdgeInsets.only(top: 4, bottom: 16),
           children: [
             CupertinoListSection.insetGrouped(

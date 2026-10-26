@@ -7,9 +7,9 @@
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Windows-3DDC84)](https://github.com/JIUSIS/shiyi-agent/releases)
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B)](https://flutter.dev)
 
-📦 **下载安装**：[shiyi-agent-v2.6.11.apk](https://github.com/JIUSIS/shiyi-agent/releases/download/v2.6.11/shiyi-agent-v2.6.11.apk) · [**新手教程**](docs/新手教程.md) · [使用教程](docs/拾忆使用教程.md) · [更新日志](CHANGELOG.md) · [GitHub Releases](https://github.com/JIUSIS/shiyi-agent/releases)
+📦 **下载安装**：[shiyi-agent-v2.6.15.apk](https://github.com/JIUSIS/shiyi-agent/releases/download/v2.6.15/shiyi-agent-v2.6.15.apk) · [**新手教程**](docs/新手教程.md) · [使用教程](docs/拾忆使用教程.md) · [更新日志](CHANGELOG.md) · [GitHub Releases](https://github.com/JIUSIS/shiyi-agent/releases)
 
-> 🆕 **2.6.11 更新**：模型输出不再被人为上限截断（默认不限制）、网络断连每轮自动重试、首字延迟降低约 3 秒、群聊改成真正的层级行动并拿到完整工具集。详见 [更新日志](CHANGELOG.md)。
+> 🆕 **2.6.15 更新**：点当前页签列表回顶、按住页签亮起按压高亮、任何页签点按先收起键盘；再点按触感与亮片描边（2.6.14）。详见 [更新日志](CHANGELOG.md)。
 
 ---
 

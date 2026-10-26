@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import '../widgets/chat_liquid_glass.dart';
 import '../core/poll_visibility.dart';
 import '../core/app_state.dart';
+import '../core/home_tab_scroll_top.dart';
 import '../core/mac_page_route.dart';
 import '../services/dsh_api.dart';
 import '../services/dsh_endpoint.dart';
@@ -46,11 +47,16 @@ class _DshFilesTabState extends State<DshFilesTab> {
   late String _connectionKey;
   Timer? _retryTimer;
 
+  /// 注册到 [HomeTabScrollTop] 供「再点当前 tab 回顶」（空态 / 错误态
+  /// 无列表挂载时 toTop 静默跳过）。
+  final ScrollController _listCtrl = ScrollController();
+
   DshApiClient get _api => DshService.instance.api;
 
   @override
   void initState() {
     super.initState();
+    HomeTabScrollTop.register(2, _listCtrl);
     _connectionKey = _currentConnectionKey();
     widget.shiyi.addListener(_handleSettingsChanged);
     unawaited(_loadHome());
@@ -237,6 +243,8 @@ class _DshFilesTabState extends State<DshFilesTab> {
     widget.shiyi.removeListener(_handleSettingsChanged);
     _requestEpoch++;
     _retryTimer?.cancel();
+    HomeTabScrollTop.unregister(2, _listCtrl);
+    _listCtrl.dispose();
     super.dispose();
   }
 
@@ -578,6 +586,7 @@ class _DshFilesTabState extends State<DshFilesTab> {
       );
     }
     return ListView(
+      controller: _listCtrl,
       padding: const EdgeInsets.only(top: 4, bottom: 16),
       children: [
         CupertinoListSection.insetGrouped(

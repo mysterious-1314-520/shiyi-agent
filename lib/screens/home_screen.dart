@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/app_state.dart';
 import '../core/home_list_order.dart';
+import '../core/home_tab_scroll_top.dart';
 import '../core/home_tabs.dart';
 import '../core/mac_page_route.dart';
 import '../core/models.dart';
@@ -210,8 +211,15 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _selectTab(int tab) {
-    if (tab == _tab) return;
+    // 任何点按（含重复点当前 tab）都先收键盘焦点：移动端键盘态下同 tab
+    // 点按也要能把输入法收掉（结构上底栏会被 IME 遮挡，可点时机多为
+    // 焦点残留而非键盘完全展开）。
     _dismissKeyboard();
+    if (tab == _tab) {
+      // 再点当前 tab：列表回到顶部（未注册的终端 tab 静默跳过）。
+      unawaited(HomeTabScrollTop.toTop(tab));
+      return;
+    }
     if (_usesLiveDshPages) {
       // 局域网 / 公网每次进入页面都重建，由页面 initState 拉取目标 DSH
       // 的最新数据，不复用手机内存中的旧页面。
@@ -705,6 +713,10 @@ class _SessionsTab extends StatefulWidget {
 class _SessionsTabState extends State<_SessionsTab> {
   final TextEditingController _searchCtrl = TextEditingController();
   final FocusNode _searchFocus = FocusNode();
+
+  /// 主列表 / 搜索列表共用（互斥分支同一时刻只挂一个）：
+  /// 注册到 [HomeTabScrollTop] 供「再点当前 tab 回顶」。
+  final ScrollController _listCtrl = ScrollController();
   String _query = '';
 
   /// 搜索防抖：避免每键一次全库查询。
@@ -770,6 +782,7 @@ class _SessionsTabState extends State<_SessionsTab> {
   @override
   void initState() {
     super.initState();
+    HomeTabScrollTop.register(0, _listCtrl);
     unawaited(_restoreExpanded());
   }
 
@@ -822,6 +835,8 @@ class _SessionsTabState extends State<_SessionsTab> {
     _openSwipeKey.dispose();
     _searchFocus.dispose();
     _searchCtrl.dispose();
+    HomeTabScrollTop.unregister(0, _listCtrl);
+    _listCtrl.dispose();
     super.dispose();
   }
 
@@ -1903,6 +1918,7 @@ class _SessionsTabState extends State<_SessionsTab> {
       }
       return _centeredList(
         ListView(
+          controller: _listCtrl,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           children: children,
         ),
@@ -1925,6 +1941,7 @@ class _SessionsTabState extends State<_SessionsTab> {
         }
         return _centeredList(
           ListView.separated(
+            controller: _listCtrl,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             itemCount: results.length,
             separatorBuilder: (_, _) => const SizedBox(height: 8),

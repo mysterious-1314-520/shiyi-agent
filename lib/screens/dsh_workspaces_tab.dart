@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/app_state.dart';
 import '../core/home_list_order.dart';
+import '../core/home_tab_scroll_top.dart';
 import '../core/mac_page_route.dart';
 import '../core/models.dart';
 import '../core/poll_visibility.dart';
@@ -339,6 +340,10 @@ class _DshWorkspacesTabState extends State<DshWorkspacesTab> {
 
   final TextEditingController _searchCtrl = TextEditingController();
   final FocusNode _searchFocus = FocusNode();
+
+  /// 主列表 / 搜索列表共用（互斥分支同一时刻只挂一个）：
+  /// 注册到 [HomeTabScrollTop] 供「再点当前 tab 回顶」。
+  final ScrollController _listCtrl = ScrollController();
   Timer? _searchDebounce;
   String _query = '';
   List<DshSessionSummary>? _searchHits;
@@ -420,6 +425,7 @@ class _DshWorkspacesTabState extends State<DshWorkspacesTab> {
   @override
   void initState() {
     super.initState();
+    HomeTabScrollTop.register(0, _listCtrl);
     _restoreExpanded();
     if (_usesLivePageData) {
       // 局域网 / 公网只显示目标 DSH 的实时列表，不读取手机旧快照。
@@ -517,6 +523,8 @@ class _DshWorkspacesTabState extends State<DshWorkspacesTab> {
     _searchFocus.dispose();
     _searchCtrl.dispose();
     _openSwipeKey.dispose();
+    HomeTabScrollTop.unregister(0, _listCtrl);
+    _listCtrl.dispose();
     super.dispose();
   }
 
@@ -1615,6 +1623,7 @@ class _DshWorkspacesTabState extends State<DshWorkspacesTab> {
         }
         return _centeredList(
           ListView(
+            controller: _listCtrl,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             children: [
               for (final s in hits)
@@ -1638,6 +1647,7 @@ class _DshWorkspacesTabState extends State<DshWorkspacesTab> {
       RefreshIndicator(
         onRefresh: _load,
         child: ListView(
+          controller: _listCtrl,
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           children: [

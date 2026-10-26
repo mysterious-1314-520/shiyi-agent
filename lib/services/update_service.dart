@@ -20,7 +20,8 @@ class UpdateService {
   UpdateService._();
 
   /// 读取 PackageInfo 失败时的兜底版本；正常情况以包内真实版本为准。
-  static const String appVersion = '2.6.5';
+  /// 发版时随 pubspec 同步，test/update_service_test.dart 有一致性断言兜底。
+  static const String appVersion = '2.6.15';
   static const String repoUrl = 'https://github.com/JIUSIS/shiyi-agent';
   static const String apiReleaseUrl =
       'https://api.github.com/repos/JIUSIS/shiyi-agent/releases/latest';

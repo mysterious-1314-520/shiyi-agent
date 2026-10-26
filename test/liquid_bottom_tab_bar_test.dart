@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:liquid_glass_easy/liquid_glass_easy.dart';
 import 'package:shiyi_agent_app/core/home_tabs.dart';
@@ -90,5 +91,120 @@ void main() {
     );
     expect(size.height, LiquidBottomTabBar.reservedHeight);
     expect(size.width, tester.getSize(find.byType(Scaffold)).width);
+  });
+
+  testWidgets('换页发一次 selectionClick 触感；重复点当前 tab 不发但回调仍上抛', (
+    tester,
+  ) async {
+    final haptics = <MethodCall>[];
+    final taps = <int>[];
+    // 主页 _selectTab 换页后 setState 重建底栏；这里用 ValueNotifier 模拟
+    // 同一行为，currentIndex 才会跟着 onTap 走。
+    final currentIndex = ValueNotifier<int>(1);
+    addTearDown(currentIndex.dispose);
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      SystemChannels.platform,
+      (call) async {
+        haptics.add(call);
+        return null;
+      },
+    );
+    addTearDown(
+      () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        SystemChannels.platform,
+        null,
+      ),
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Align(
+            alignment: Alignment.bottomCenter,
+            child: ValueListenableBuilder<int>(
+              valueListenable: currentIndex,
+              builder: (context, idx, _) => LiquidBottomTabBar(
+                currentIndex: idx,
+                tabs: HomeTabs.shiyi,
+                onTap: (i) {
+                  taps.add(i);
+                  currentIndex.value = i;
+                },
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // 点非当前 tab：一次触感 + 换页回调。
+    await tester.tap(find.text('文件').first, warnIfMissed: false);
+    await tester.pump();
+    final selectionVibrations = haptics
+        .where((c) => c.method == 'HapticFeedback.vibrate')
+        .toList();
+    expect(selectionVibrations, hasLength(1));
+    expect(selectionVibrations.single.arguments, 'HapticFeedbackType.selectionClick');
+    expect(taps, [2]);
+
+    // 再点当前 tab（下标 2）：不发触感，但回调必须照常上抛——
+    // 主页 _selectTab 同 tab 分支靠它收键盘 + 回顶（键盘态可达性前提）。
+    haptics.clear();
+    await tester.tap(find.text('文件').first, warnIfMissed: false);
+    await tester.pump();
+    expect(
+      haptics.where((c) => c.method == 'HapticFeedback.vibrate'),
+      isEmpty,
+    );
+    expect(taps, [2, 2]);
+  });
+
+  testWidgets('按压高亮：pointer down 覆盖对应 cell，up 后 150ms 淡出', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Align(
+            alignment: Alignment.bottomCenter,
+            child: LiquidBottomTabBar(
+              currentIndex: 0,
+              tabs: HomeTabs.shiyi,
+              onTap: (_) {},
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final bar = tester.getRect(find.byType(LiquidBottomTabBar));
+    // 按在第 3 格（文件）中心。
+    final cellWidth =
+        (bar.width - 2 * LiquidBottomTabBar.itemPadding) / HomeTabs.shiyi.length;
+    final pressOffset = Offset(
+      LiquidBottomTabBar.itemPadding + 2.5 * cellWidth,
+      LiquidBottomTabBar.capsuleHeight / 2,
+    );
+    final gesture = await tester.startGesture(
+      bar.topLeft + pressOffset,
+    );
+    // 40ms 淡入完成后按压格完全不透明。
+    await tester.pump(LiquidBottomTabBar.pressInDuration);
+    final opacities = tester
+        .widgetList<AnimatedOpacity>(find.byType(AnimatedOpacity))
+        .map((w) => w.opacity)
+        .toList();
+    expect(opacities.where((o) => o == 1), hasLength(1));
+
+    await gesture.up();
+    await tester.pump(LiquidBottomTabBar.pressOutDuration);
+    expect(
+      tester
+          .widgetList<AnimatedOpacity>(find.byType(AnimatedOpacity))
+          .every((w) => w.opacity == 0),
+      isTrue,
+    );
   });
 }

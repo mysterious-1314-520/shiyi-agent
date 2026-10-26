@@ -258,7 +258,7 @@ footer .fl{margin-top:9px;display:flex;gap:18px;justify-content:center;flex-wrap
       <a href="#features">功能</a>
       <a href="#changelog">更新</a>
       <a href="#links">更多</a>
-      <a class="nav-dl" href="shiyi-agent-v2.6.12.apk" download>下载 APK</a>
+      <a class="nav-dl" href="shiyi-agent-v2.6.15.apk" download>下载 APK</a>
     </div>
   </div>
 </nav>
@@ -266,22 +266,22 @@ footer .fl{margin-top:9px;display:flex;gap:18px;justify-content:center;flex-wrap
 <div id="top"></div>
 
 <header class="hero wrap">
-  <div class="badge">当前版本 <b>v2.6.12</b> · build 37 · 2026-10-25</div>
+  <div class="badge">当前版本 <b>v2.6.15</b> · build 40 · 2026-10-26</div>
   <h1>拾忆 ShiYi</h1>
   <p class="sub">运行在 Android 手机与 Windows 桌面的个人 AI 工作台 —— 让 AI 不只是回答问题，而是参与你的实际工作：读取资料、修改文件、运行命令、整理项目。</p>
   <p class="platforms">Android<span>|</span>Windows<span>|</span>Flutter<span>|</span>GPL-3.0</p>
 
   <div class="dl-card glass">
     <div class="dl-title">ANDROID APK 下载</div>
-    <a class="btn-main" href="shiyi-agent-v2.6.12.apk" download onclick="return smartDownload(event)">
+    <a class="btn-main" href="shiyi-agent-v2.6.15.apk" download onclick="return smartDownload(event)">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>
-      下载 shiyi-agent-v2.6.12.apk
+      下载 shiyi-agent-v2.6.15.apk
       <small>20.2 MB</small>
     </a>
     <a class="btn-sub" href="https://github.com/JIUSIS/shiyi-agent/releases" target="_blank" rel="noopener">或前往 GitHub Releases 获取历史版本</a>
 
     <div class="specs">
-      <div class="spec"><div class="k">版本</div><div class="v">2.6.12 (37)</div></div>
+      <div class="spec"><div class="k">版本</div><div class="v">2.6.15 (40)</div></div>
       <div class="spec"><div class="k">大小</div><div class="v">20.2 MB</div></div>
       <div class="spec"><div class="k">架构</div><div class="v">arm64-v8a</div></div>
       <div class="spec"><div class="k">系统要求</div><div class="v">Android 7.0+</div></div>
@@ -289,7 +289,7 @@ footer .fl{margin-top:9px;display:flex;gap:18px;justify-content:center;flex-wrap
 
     <div class="sha-row">
       <span>SHA-256</span>
-      <code id="sha">502e2d837180ef58b33bb31e4cdf231f5bc08b3c2499df020c90709d9856455f</code>
+      <code id="sha">0d5d5ba4e9c289e45456ab12cb9dbec8e0515f79e27ab7d03eef1817dd7a340f</code>
       <button class="copy-btn" onclick="copySha(this)">复制</button>
     </div>
   </div>
@@ -386,7 +386,33 @@ footer .fl{margin-top:9px;display:flex;gap:18px;justify-content:center;flex-wrap
   </div>
 
   <div class="log glass">
-    <div class="ver"><b>v2.6.12</b><span class="tag">当前版本</span><time>2026-10-25</time></div>
+    <div class="ver"><b>v2.6.15</b><span class="tag">当前版本</span><time>2026-10-26</time></div>
+    <ul>
+      <li><b>同 tab 回顶 + 按压高亮</b>：再点当前页签列表回顶；按住页签亮起该格高亮（进快出慢、跟手移动）。</li>
+      <li><b>点按先收键盘</b>：任何页签点按先收起输入法，键盘态点按同样有效。</li>
+      <li>版本号对齐发布规范（2.6.15 / versionCode 40）。</li>
+    </ul>
+  </div>
+
+  <div class="log glass">
+    <div class="ver"><b>v2.6.14</b><time>2026-10-26</time></div>
+    <ul>
+      <li><b>点按触感与亮片描边</b>：切换页签轻震一下（仅换页时），亮片带发丝玻璃描边与更深的悬浮影。</li>
+      <li>版本号对齐发布规范（2.6.14 / versionCode 39）。</li>
+    </ul>
+  </div>
+
+  <div class="log glass">
+    <div class="ver"><b>v2.6.13</b><time>2026-10-25</time></div>
+    <ul>
+      <li><b>首页底栏换 Apple 质感</b>：薄纱底色 + 大模糊 + 下偏移接触影，读作悬浮毛玻璃。</li>
+      <li><b>选中态改中性玻璃亮片</b>：去掉色块高亮，保留 iOS 式滑动亮片与 SF 式字重；几何与键盘让位不变。</li>
+      <li>版本号对齐发布规范（2.6.13 / versionCode 38）。</li>
+    </ul>
+  </div>
+
+  <div class="log glass">
+    <div class="ver"><b>v2.6.12</b><time>2026-10-25</time></div>
     <ul>
       <li><b>应用包名升级为 io.github.jiusis.shiyi</b>：与旧版（com.shiyi.agent）是两个独立应用，安装新版后旧版及数据仍在，数据需手动迁移或在新版重新配置。</li>
       <li><b>首页底栏换成液态玻璃悬浮胶囊</b>：更贴合内容区、键盘弹起时自动让位，不再垫出空白。</li>
@@ -396,7 +422,7 @@ footer .fl{margin-top:9px;display:flex;gap:18px;justify-content:center;flex-wrap
   </div>
 
   <div class="log glass">
-    <div class="ver"><b>v2.6.11</b><span class="tag old">上一版</span><time>2026-10-16</time></div>
+    <div class="ver"><b>v2.6.11</b><time>2026-10-16</time></div>
     <ul>
       <li><b>模型输出不再被人为上限截断</b>：默认不限制输出长度，四项上限均可在设置中自行收紧，老配置自动迁移。</li>
       <li><b>网络断连每轮自动重试</b>：修掉按 UTF-16 截断切碎 emoji 导致的非法请求体，连接稳定性大幅改善。</li>
@@ -449,8 +475,8 @@ function smartDownload(ev){
   if(el.dataset.busy){return false}
   el.dataset.busy='1';
   var original=el.innerHTML;
-  var NAME='shiyi-agent-v2.6.12.apk';
-  var TOTAL=20188926;
+  var NAME='shiyi-agent-v2.6.15.apk';
+  var TOTAL=20199042;
   var parts=['/dl/part00','/dl/part01','/dl/part02','/dl/part03','/dl/part04','/dl/part05','/dl/part06','/dl/part07'];
   var received=0,next=0,failed=false;
   var bufs=new Array(parts.length);

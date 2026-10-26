@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../core/app_state.dart';
+import '../core/home_tab_scroll_top.dart';
 import '../core/mac_page_route.dart';
 import '../widgets/bagua_icon.dart';
 import '../widgets/home_group_header.dart';
@@ -17,9 +18,32 @@ import 'skills_screen.dart';
 const _memoryBlue = Color(0xFF0A84FF);
 const _skillPurple = Color(0xFFAF52DE);
 
-class FeaturesScreen extends StatelessWidget {
+class FeaturesScreen extends StatefulWidget {
   final ShiyiState shiyi;
   const FeaturesScreen({super.key, required this.shiyi});
+
+  @override
+  State<FeaturesScreen> createState() => _FeaturesScreenState();
+}
+
+class _FeaturesScreenState extends State<FeaturesScreen> {
+  /// 注册到 [HomeTabScrollTop] 供「再点当前 tab 回顶」。
+  final ScrollController _listCtrl = ScrollController();
+
+  ShiyiState get shiyi => widget.shiyi;
+
+  @override
+  void initState() {
+    super.initState();
+    HomeTabScrollTop.register(1, _listCtrl);
+  }
+
+  @override
+  void dispose() {
+    HomeTabScrollTop.unregister(1, _listCtrl);
+    _listCtrl.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +76,7 @@ class FeaturesScreen extends StatelessWidget {
             ),
           ),
           body: ListView(
+            controller: _listCtrl,
             padding: const EdgeInsets.only(top: 4, bottom: 28),
             children: [
               CupertinoListSection.insetGrouped(

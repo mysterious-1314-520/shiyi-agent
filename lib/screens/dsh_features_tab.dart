@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../core/poll_visibility.dart';
 import '../core/app_state.dart';
+import '../core/home_tab_scroll_top.dart';
 import '../core/mac_page_route.dart';
 import '../services/dsh_service.dart';
 import '../widgets/ios_style.dart';
@@ -40,9 +41,13 @@ class _DshFeaturesTabState extends State<DshFeaturesTab> {
   Timer? _statusTimer;
   bool _checking = false;
 
+  /// 注册到 [HomeTabScrollTop] 供「再点当前 tab 回顶」。
+  final ScrollController _listCtrl = ScrollController();
+
   @override
   void initState() {
     super.initState();
+    HomeTabScrollTop.register(1, _listCtrl);
     DshService.instance.status.addListener(_onDshStatus);
     unawaited(_checkStatus());
     _statusTimer = Timer.periodic(const Duration(seconds: 3), (_) {
@@ -62,6 +67,8 @@ class _DshFeaturesTabState extends State<DshFeaturesTab> {
   void dispose() {
     DshService.instance.status.removeListener(_onDshStatus);
     _statusTimer?.cancel();
+    HomeTabScrollTop.unregister(1, _listCtrl);
+    _listCtrl.dispose();
     super.dispose();
   }
 
@@ -137,6 +144,7 @@ class _DshFeaturesTabState extends State<DshFeaturesTab> {
           ],
         ),
         body: ListView(
+          controller: _listCtrl,
           padding: const EdgeInsets.only(top: 4, bottom: 28),
           children: [
             if (_unavailableReason != null) _statusBanner(_unavailableReason!),
