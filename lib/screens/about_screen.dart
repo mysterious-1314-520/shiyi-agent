@@ -277,7 +277,7 @@ class _AboutScreenState extends State<AboutScreen> {
                             color: _iosBlue,
                           ),
                           title: const Text(
-                            'github.com/JIUSIS/shiyi-agent',
+                            'github.com/mysterious-1314-520/shiyi-agent',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

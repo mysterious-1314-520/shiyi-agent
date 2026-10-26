@@ -22,9 +22,9 @@ class UpdateService {
   /// 读取 PackageInfo 失败时的兜底版本；正常情况以包内真实版本为准。
   /// 发版时随 pubspec 同步，test/update_service_test.dart 有一致性断言兜底。
   static const String appVersion = '2.6.15';
-  static const String repoUrl = 'https://github.com/JIUSIS/shiyi-agent';
+  static const String repoUrl = 'https://github.com/mysterious-1314-520/shiyi-agent';
   static const String apiReleaseUrl =
-      'https://api.github.com/repos/JIUSIS/shiyi-agent/releases/latest';
+      'https://api.github.com/repos/mysterious-1314-520/shiyi-agent/releases/latest';
 
   /// 本次启动里用户点过「稍后」后，自动检查不再重复弹窗。
   static bool _autoCheckDismissed = false;
@@ -93,7 +93,7 @@ class UpdateService {
       final res = await http
           .get(
             Uri.parse(
-              'https://data.jsdelivr.com/v1/packages/gh/JIUSIS/shiyi-agent',
+              'https://data.jsdelivr.com/v1/packages/gh/mysterious-1314-520/shiyi-agent',
             ),
           )
           .timeout(const Duration(seconds: 8));
@@ -241,7 +241,7 @@ class UpdateService {
       return;
     }
     final direct =
-        'https://github.com/JIUSIS/shiyi-agent/releases/download/'
+        'https://github.com/mysterious-1314-520/shiyi-agent/releases/download/'
         'v$ver/shiyi-agent-v$ver.apk';
     const mirrors = ['https://gh-proxy.com/', 'https://ghfast.top/'];
     final progress = ValueNotifier<double>(0);

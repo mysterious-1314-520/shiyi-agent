@@ -2,12 +2,12 @@
 
 > 运行在 Android 手机与 Windows 桌面的个人 AI 工作台 —— 让 AI 不只是回答问题，而是参与你的实际工作：读取资料、修改文件、运行命令、整理项目。
 
-[![Release](https://img.shields.io/github/v/release/JIUSIS/shiyi-agent)](https://github.com/JIUSIS/shiyi-agent/releases)
+[![Release](https://img.shields.io/github/v/release/mysterious-1314-520/shiyi-agent)](https://github.com/mysterious-1314-520/shiyi-agent/releases)
 [![License](https://img.shields.io/badge/license-GPL--3.0-important)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Windows-3DDC84)](https://github.com/JIUSIS/shiyi-agent/releases)
+[![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Windows-3DDC84)](https://github.com/mysterious-1314-520/shiyi-agent/releases)
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B)](https://flutter.dev)
 
-📦 **下载安装**：[shiyi-agent-v2.6.15.apk](https://github.com/JIUSIS/shiyi-agent/releases/download/v2.6.15/shiyi-agent-v2.6.15.apk) · [**新手教程**](docs/新手教程.md) · [使用教程](docs/拾忆使用教程.md) · [更新日志](CHANGELOG.md) · [GitHub Releases](https://github.com/JIUSIS/shiyi-agent/releases)
+📦 **下载安装**：[shiyi-agent-v2.6.15.apk](https://github.com/mysterious-1314-520/shiyi-agent/releases/download/v2.6.15/shiyi-agent-v2.6.15.apk) · [**新手教程**](docs/新手教程.md) · [使用教程](docs/拾忆使用教程.md) · [更新日志](CHANGELOG.md) · [GitHub Releases](https://github.com/mysterious-1314-520/shiyi-agent/releases)
 
 > 🆕 **2.6.15 更新**：点当前页签列表回顶、按住页签亮起按压高亮、任何页签点按先收起键盘；再点按触感与亮片描边（2.6.14）。详见 [更新日志](CHANGELOG.md)。
 
@@ -143,7 +143,7 @@
 
 ## 安装
 
-1. 从 [Releases](https://github.com/JIUSIS/shiyi-agent/releases) 下载 APK（Android 8.0+，arm64）
+1. 从 [Releases](https://github.com/mysterious-1314-520/shiyi-agent/releases) 下载 APK（Android 8.0+，arm64）
 2. 安装后打开应用，完成初始配置（模型配置见 [新手教程](docs/新手教程.md)）
 3. 首次启动会自动部署内置 Alpine 终端环境（约 4MB 资产 + 首次初始化），请耐心等待
 
